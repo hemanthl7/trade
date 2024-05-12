@@ -54,16 +54,16 @@ class OrderProcessor:
     def execute_user_order(self, user_id, user_connect, order_params):
         try:
             orderId = user_connect.placeOrder(order_params)
-            logger.info("The order id is: {}".format(orderId))
+            logger.info(f"The order id is: {orderId}")
         except se.TokenException as e:
             tokenSet = user_connect.renewAccessToken()
             user_connect.setRefreshToken(tokenSet['refreshToken'])
             user_connect.setAccessToken(tokenSet['jwtToken'])
-            logger.info("{} User Session issue: {}".format(user_id, e.message))
+            logger.info(f"{user_id} User Session issue: {e.message}")
             self.execute_user_order(user_id, user_connect, order_params)
 
         except Exception as e:
-            logger.info("Order placement failed: {}".format(e.message))
+            logger.info(f"Order placement failed: {e.message}")
 
     def stop_sessions(self):
         futures = []
