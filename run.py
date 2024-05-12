@@ -12,6 +12,7 @@ users_path = r"./uselogin/users.csv"
 
 log = logging.getLogger(__name__)
 
+
 class Handler(watchdog.events.PatternMatchingEventHandler):
     def __init__(self, order_processor):
         # Set the patterns for PatternMatchingEventHandler

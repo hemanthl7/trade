@@ -60,7 +60,7 @@ class OrderProcessor:
             self.execute_user_order(user_id, user_connect, order_params)
 
         except Exception as e:
-            logger.info(f"Order placement failed: {}".format(e.message))
+            logger.info("Order placement failed: {}".format(e.message))
 
     def stop_sessions(self):
         futures = []
