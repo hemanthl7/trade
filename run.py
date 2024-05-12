@@ -3,11 +3,14 @@ import watchdog.observers
 import time
 from orderProcesser import OrderProcessor
 import shutil
+from logzero import logger
+import logging
 
 src_path = r"./orders/toplace"
 des_path = r"./orders/done"
 users_path = r"./uselogin/users.csv"
 
+log = logging.getLogger(__name__)
 
 class Handler(watchdog.events.PatternMatchingEventHandler):
     def __init__(self, order_processor):
@@ -17,11 +20,11 @@ class Handler(watchdog.events.PatternMatchingEventHandler):
         self.order_processor = order_processor
 
     def on_created(self, event):
-        print("Watchdog received created event - % s." % event.src_path)
+        logger.info("Watchdog received created event - % s." % event.src_path)
         # Event is created, you can process it now
         self.order_processor.process(event.src_path)
         shutil.move(event.src_path, des_path)
-        print("Order execution completed")
+        logger.info(f"Order execution completed")
 
 
 if __name__ == "__main__":
@@ -34,7 +37,7 @@ if __name__ == "__main__":
         while True:
             time.sleep(1)
     except BaseException as e:
-        print(e)
+        logger.info(e)
         order_processor.stop_sessions()
         observer.stop()
     observer.join()
