@@ -1,0 +1,2 @@
+variety,tradingsymbol,symboltoken,transactiontype,exchange,ordertype,producttype,duration,price,squareoff,stoploss,quantity
+NORMAL,BANKNIFTY24APR2448500PE,67537,BUY,NFO,LIMIT,INTRADAY,DAY,234,0,0,15
