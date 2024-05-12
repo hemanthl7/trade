@@ -24,12 +24,15 @@ class OrderProcessor:
             self.users[user_data['userid']] = user_connect
 
     def process(self, csv):
-        df = pd.read_csv(csv)
-        orders = list()
-        for index, row in df.iterrows():
-            order = row.to_dict()
-            orders.append(order)
-        self.run_orders(orders)
+        try:
+            df = pd.read_csv(csv)
+            orders = list()
+            for index, row in df.iterrows():
+                order = row.to_dict()
+                orders.append(order)
+            self.run_orders(orders)
+        except IOError as e:
+            logger.info(f"Error while procession file:{e}")
 
     def run_orders(self, orders):
         futures = []
