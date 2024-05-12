@@ -21,6 +21,7 @@ class Handler(watchdog.events.PatternMatchingEventHandler):
         # Event is created, you can process it now
         self.order_processor.process(event.src_path)
         shutil.move(event.src_path, des_path)
+        print("Order execution completed")
 
 
 if __name__ == "__main__":
